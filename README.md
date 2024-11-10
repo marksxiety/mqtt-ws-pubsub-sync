@@ -27,8 +27,6 @@ Follow these steps to get the application running locally.
 
 ### 1. **Run the Application**
 
-To start the Vue.js frontend using Vite:
-
 ```bash
 # Clone the repository
 git clone https://github.com/marksxiety/mqtt-ws-pubsub-sync.git
