@@ -25,7 +25,7 @@ Before running the application, ensure you have the following installed:
 
 Follow these steps to get the application running locally.
 
-### 1. **Run the Vite App (Frontend)**
+### 1. **Run the Application**
 
 To start the Vue.js frontend using Vite:
 
