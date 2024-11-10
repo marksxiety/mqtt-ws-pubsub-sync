@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <title>MQTT ws</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>MQTT recieved messages</h1>
+        <ul id="msgList"></ul>
+      </section>
+    </main>
+  </body>
+</html>
+
+<script>
+  const client = mqtt.connect("ws://localhost:8080/mqtt");
+
+  client.subscribe("app/logs", (error) => {
+    if (error) {
+      console.error("Subscription error:", error);
+    } else {
+      console.log("Successfully subscribed to app/logs");
+    }
+  });
+
+  client.on("message", (topic, payload) => {
+    const message = payload.toString();
+    console.log("Received message:", message);
+    let ul = document.getElementById("msgList");
+    let li = document.createElement("li");
+    li.innerHTML = message;
+    ul.append(li);
+  });
+
+  client.on("error", (error) => {
+    console.error("Connection error:", error);
+  });
+
+  client.on("close", () => {
+    console.warn("Connection closed");
+  });
+</script>
+
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 80vh;
+    height: 80vh;
+    padding: 5rem;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+  }
+
+  ul {
+    text-align: center;
+    width: 100%;
+    text-wrap: wrap;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+</style>
